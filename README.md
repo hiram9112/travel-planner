@@ -27,11 +27,12 @@ The goal of this project is to simulate a real-world application, following prof
 ---
 
 ## Repository Structure
-
+```text
 travel-planner/
 ├── frontend/   # Frontend application (Vue 3 + Vite)
 ├── backend/    # Backend API (Node + Express)
 └── README.md
+```
 
 ---
 
