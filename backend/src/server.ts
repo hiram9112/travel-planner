@@ -1,21 +1,10 @@
-// Import Express library
-import express from "express";
+// Import configured app
+import app from "./app";
 
-// Create Express application
-const app = express();
-
-// Define server port
+// Server port (temporarily fixed)
 const PORT = 3000;
 
-// Middleware to parse JSON request bodies
-app.use(express.json());
-
-// Health check endpoint
-app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
-});
-
-// Start HTTP server
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
 });
