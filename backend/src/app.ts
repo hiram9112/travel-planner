@@ -1,17 +1,17 @@
-// Import Express framework
-import express from "express";
+import express from 'express';
+import cors from 'cors';
+import { errorMiddleware } from './middlewares/error.middleware';
 
-// Import application routes
-import routes from "./routes";
+export const app = express();
 
-// Create Express application instance
-const app = express();
-
-// Middleware to parse incoming JSON request bodies
+// Global middlewares 
+app.use(cors());
 app.use(express.json());
 
-// Register application routes
-app.use(routes);
+// Temporary health check route
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
 
-// Export app to be started in server.ts
-export default app;
+// Error handling middleware (must be last)
+app.use(errorMiddleware);
