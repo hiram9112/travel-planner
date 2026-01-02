@@ -1,27 +1,33 @@
 {
   "compilerOptions": {
-    // JavaScript version to which the code is compiled
+    // JavaScript version to which the TypeScript code is compiled
     "target": "ES2020",
 
     // Module system used by Node.js in the backend
     "module": "CommonJS",
 
-    // Folder where the TypeScript source code lives
+    // Tells TypeScript how to resolve imports (node_modules, @prisma/client, etc.)
+    "moduleResolution": "Node",
+
+    // Root folder where the TypeScript source code lives
     "rootDir": "src",
 
-    // Folder where the compiled JavaScript is generated
+    // Folder where the compiled JavaScript output is generated
     "outDir": "dist",
 
-    // Enables strict type checking
+    // Enables strict type checking (recommended for backend projects)
     "strict": true,
 
-    // Allows importing CommonJS libraries using modern syntax
+    // Allows importing CommonJS libraries using ES module syntax (import)
     "esModuleInterop": true,
 
-    // Skips type checking of dependency declaration files
+    // Skips type checking of declaration files in dependencies
     "skipLibCheck": true,
 
-    // Enforces consistent casing in file name imports
+    // Enforces consistent casing in file names (important on Linux)
     "forceConsistentCasingInFileNames": true
-  }
+  },
+
+  // Defines which files are part of the TypeScript project
+  "include": ["src"]
 }
