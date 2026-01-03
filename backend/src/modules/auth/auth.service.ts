@@ -1,20 +1,38 @@
-/**
- * Authentication service.
- * This layer contains business logic related to authentication.
- * It is framework-agnostic and should not depend on Express.
- */
+import { PrismaClient } from '@prisma/client';
+import { RegisterInput } from './auth.types';
+
+const prisma = new PrismaClient();
 
 /**
  * Register a new user.
- * Business logic will be implemented later.
+ * This function contains the business logic for user registration.
  */
-export const registerUser = async () => {
-  throw new Error('Register service not implemented');
+export const registerUser = async (input: RegisterInput) => {
+  const { email, password } = input;
+
+  // Check if user already exists
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (existingUser) {
+    throw new Error('User already exists');
+  }
+
+  // Create user (password hashing will be added later)
+  const user = await prisma.user.create({
+    data: {
+      email,
+      password,
+    },
+  });
+
+  return user;
 };
 
 /**
  * Authenticate an existing user.
- * Business logic will be implemented later.
+ * Logic will be implemented later.
  */
 export const loginUser = async () => {
   throw new Error('Login service not implemented');

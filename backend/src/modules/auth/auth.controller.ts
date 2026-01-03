@@ -10,9 +10,15 @@ export const register = async (
   next: NextFunction
 ) => {
   try {
-    await registerUser();
-    res.status(501).json({ message: 'Register not implemented yet' });
-  } catch (error) {
+    const { email, password } = req.body;
+
+    const user = await registerUser({ email, password });
+
+    res.status(201).json({
+      id: user.id,
+      email: user.email,
+    });
+  }  catch (error) {
     next(error);
   }
 };
