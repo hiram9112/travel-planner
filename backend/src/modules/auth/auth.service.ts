@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { RegisterInput } from './auth.types';
+import { LoginInput } from './auth.types';
 import bcrypt from 'bcrypt';
 
 
@@ -37,8 +38,27 @@ export const registerUser = async (input: RegisterInput) => {
 
 /**
  * Authenticate an existing user.
- * Logic will be implemented later.
+ * This function contains the business logic for user login.
  */
-export const loginUser = async () => {
-  throw new Error('Login service not implemented');
+export const loginUser = async (input: LoginInput) => {
+  const { email, password } = input;
+
+  // Find user by email
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    throw new Error('Invalid credentials');
+  }
+
+  // Compare password with stored hash
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    throw new Error('Invalid credentials');
+  }
+
+  return user;
 };
+

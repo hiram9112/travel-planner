@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { registerUser, loginUser } from './auth.service';
-import { registerSchema } from './auth.schemas';
+import { registerSchema, loginSchema } from './auth.schemas';
 
 
 /**
@@ -35,8 +35,14 @@ export const login = async (
   next: NextFunction
 ) => {
   try {
-    await loginUser();
-    res.status(501).json({ message: 'Login not implemented yet' });
+    const parsedBody = loginSchema.parse(req.body);
+
+    const user = await loginUser(parsedBody);
+
+    res.status(200).json({
+      id: user.id,
+      email: user.email,
+    });
   } catch (error) {
     next(error);
   }
