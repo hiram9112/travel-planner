@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { RegisterInput } from './auth.types';
+import bcrypt from 'bcrypt';
+
 
 const prisma = new PrismaClient();
 
@@ -19,11 +21,14 @@ export const registerUser = async (input: RegisterInput) => {
     throw new Error('User already exists');
   }
 
-  // Create user (password hashing will be added later)
+  // Hash password before storing it
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // Create user with hashed password
   const user = await prisma.user.create({
     data: {
       email,
-      password,
+      password: hashedPassword,
     },
   });
 

@@ -1,8 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { registerUser, loginUser } from './auth.service';
+import { registerSchema } from './auth.schemas';
+
 
 /**
  * Handle user registration HTTP request.
+ * Validates input using Zod and delegates business logic to the auth service.
  */
 export const register = async (
   req: Request,
@@ -10,9 +13,9 @@ export const register = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password } = req.body;
+    const parsedBody = registerSchema.parse(req.body);
 
-    const user = await registerUser({ email, password });
+    const user = await registerUser(parsedBody);
 
     res.status(201).json({
       id: user.id,
