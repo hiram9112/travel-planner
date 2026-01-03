@@ -42,6 +42,7 @@ export const login = async (
     res.status(200).json({
       id: user.id,
       email: user.email,
+      token:user.token,
     });
   } catch (error) {
     next(error);
