@@ -25,7 +25,10 @@
     "skipLibCheck": true,
 
     // Enforces consistent casing in file names (important on Linux)
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    
+    //
+    "types":["node"]
   },
 
   // Defines which files are part of the TypeScript project
