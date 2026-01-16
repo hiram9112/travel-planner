@@ -32,19 +32,27 @@ model Trip {
 model Option {
   id                String       @id @default(uuid())
   tripId            String
+
+  // Required fields (user input)
   title             String
   externalUrl       String
-  imageUrl          String
   priceCents        Int
   travelTimeMinutes Int
+  locationText      String
+  imageUrl          String
   note              String
-  status            OptionStatus @default(ACTIVE)
+
+  // Workflow state
+  status            OptionStatus 
+
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
-  trip              Trip         @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  trip              Trip @relation(fields: [tripId], references: [id], onDelete: Cascade)
 }
 
 enum OptionStatus {
+  PENDING
   ACTIVE
   DISCARDED
 }

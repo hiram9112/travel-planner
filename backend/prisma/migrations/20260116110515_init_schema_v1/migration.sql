@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "OptionStatus" AS ENUM ('ACTIVE', 'DISCARDED');
+CREATE TYPE "OptionStatus" AS ENUM ('PENDING', 'ACTIVE', 'DISCARDED');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -33,11 +33,12 @@ CREATE TABLE "Option" (
     "tripId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "externalUrl" TEXT NOT NULL,
-    "imageUrl" TEXT NOT NULL,
     "priceCents" INTEGER NOT NULL,
     "travelTimeMinutes" INTEGER NOT NULL,
+    "locationText" TEXT NOT NULL,
+    "imageUrl" TEXT NOT NULL,
     "note" TEXT NOT NULL,
-    "status" "OptionStatus" NOT NULL DEFAULT 'ACTIVE',
+    "status" "OptionStatus" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
